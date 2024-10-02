@@ -5,6 +5,7 @@ use std::{f32::consts::PI, fmt::Debug, marker::PhantomData, ops::DerefMut};
 use bevy_animation::animation_curves::AnimatableProperty;
 use bevy_app::App;
 use bevy_app::{Plugin, PreUpdate};
+use bevy_ecs::system::Local;
 use bevy_ecs::{
     component::Component,
     system::{Query, Res},
@@ -20,9 +21,9 @@ pub struct Dynamic<P: AnimatableProperty<Property: VectorSpace>> {
     pub target: P::Property,
     pub params: DynamicsParams,
 
-    pub prev_target: P::Property,
-    pub current: P::Property,
-    pub d_current: P::Property,
+    prev_target: P::Property,
+    current: P::Property,
+    d_current: P::Property,
 }
 
 impl<P: AnimatableProperty<Property: VectorSpace>> Dynamic<P> {
