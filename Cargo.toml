@@ -1,0 +1,16 @@
+[package]
+name = "bevy_proc_anim"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bevy_animation = { git = "https://github.com/bevyengine/bevy" }
+bevy_math = { git = "https://github.com/bevyengine/bevy" }
+bevy_ecs = { git = "https://github.com/bevyengine/bevy" }
+bevy_reflect = { git = "https://github.com/bevyengine/bevy" }
+bevy_transform = { git = "https://github.com/bevyengine/bevy" }
+bevy_time = { git = "https://github.com/bevyengine/bevy" }
+bevy_app = { git = "https://github.com/bevyengine/bevy" }
+
+[dev-dependencies]
+bevy = { git = "https://github.com/bevyengine/bevy" }
