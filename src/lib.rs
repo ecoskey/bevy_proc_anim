@@ -5,7 +5,6 @@ use std::{f32::consts::PI, fmt::Debug, marker::PhantomData, ops::DerefMut};
 use bevy_animation::animation_curves::AnimatableProperty;
 use bevy_app::App;
 use bevy_app::{Plugin, PreUpdate};
-use bevy_ecs::system::Local;
 use bevy_ecs::{
     component::Component,
     system::{Query, Res},
@@ -16,7 +15,7 @@ use bevy_math::{
 };
 use bevy_time::Time;
 
-#[derive(Component, Debug)]
+#[derive(Component)]
 pub struct Dynamic<P: AnimatableProperty<Property: VectorSpace>> {
     pub target: P::Property,
     pub params: DynamicsParams,
@@ -166,7 +165,7 @@ impl<P: AnimatableProperty<Property: VectorSpace>> Default for DynamicsPlugin<P>
     }
 }
 
-impl<P: AnimatableProperty<Property: VectorSpace> + Debug> Plugin for DynamicsPlugin<P> {
+impl<P: AnimatableProperty<Property: VectorSpace>> Plugin for DynamicsPlugin<P> {
     fn build(&self, app: &mut App) {
         match self.tick_mode {
             DynamicsTickMode::Simple => {
@@ -182,7 +181,7 @@ impl<P: AnimatableProperty<Property: VectorSpace> + Debug> Plugin for DynamicsPl
     }
 }
 
-fn tick_dynamics_simple<P: AnimatableProperty<Property: VectorSpace> + Debug>(
+fn tick_dynamics_simple<P: AnimatableProperty<Property: VectorSpace>>(
     mut dynamics: Query<(&mut Dynamic<P>, &mut P::Component)>,
     time: Res<Time>,
 ) {
