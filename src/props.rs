@@ -7,8 +7,6 @@ use bevy_math::{Vec3, VectorSpace};
 use bevy_reflect::{FromReflect, Reflect, Reflectable};
 use bevy_transform::components::Transform;
 
-use crate::AnimValue;
-
 #[derive(Reflect)]
 pub struct IdProperty<C>(#[reflect(ignore)] PhantomData<C>);
 
@@ -31,43 +29,23 @@ impl<
     }
 }
 
-#[derive(Reflect, Debug)]
-pub struct TransformProperty;
+#[macro_export]
+macro_rules! prop {
+    ($pub:vis struct $name:ident, $component: ident, $prop: ident, $op: expr) => {
+        #[derive(Reflect, Debug)]
+        $pub struct $name;
 
-impl AnimatableProperty for TransformProperty {
-    type Component = Transform;
+        impl AnimatableProperty for $name {
+            type Component = $component;
+            type Property = $prop;
 
-    type Property = Transform;
-
-    fn get_mut(component: &mut Self::Component) -> Option<&mut Self::Property> {
-        Some(component)
-    }
+            fn get_mut(component: &mut Self::Component) -> Option<&mut Self::Property> {
+                let op: fn(&mut Self::Component) -> &mut Self::Property = $op;
+                Some((op)(component))
+            }
+        }
+    };
 }
 
-#[derive(Reflect, Debug)]
-pub struct TranslationProperty;
-
-impl AnimatableProperty for TranslationProperty {
-    type Component = Transform;
-
-    type Property = Vec3;
-
-    fn get_mut(component: &mut Self::Component) -> Option<&mut Self::Property> {
-        Some(&mut component.translation)
-    }
-}
-
-// pub struct RotationProperty;
-
-#[derive(Reflect)]
-pub struct ScaleProperty;
-
-impl AnimatableProperty for ScaleProperty {
-    type Component = Transform;
-
-    type Property = Vec3;
-
-    fn get_mut(component: &mut Self::Component) -> Option<&mut Self::Property> {
-        Some(&mut component.scale)
-    }
-}
+prop!(pub struct TranslationProperty, Transform, Vec3, |tf| &mut tf.translation);
+prop!(pub struct ScaleProperty, Transform, Vec3, |tf| &mut tf.scale);

@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_proc_anim::{
-    state::DynamicsParams, DynamicsCommandsExt, DynamicsEntityCommandsExt, DynamicsPlugin,
+    prop, state::DynamicsParams, DynamicsCommandsExt, DynamicsEntityCommandsExt, DynamicsPlugin,
 };
 
 fn main() {
@@ -55,18 +55,12 @@ fn setup_camera(mut commands: Commands) {
     commands.spawn(Camera2d);
 }
 
-#[derive(Reflect)]
-struct TranslationYProperty;
-
-impl AnimatableProperty for TranslationYProperty {
-    type Component = Transform;
-
-    type Property = f32;
-
-    fn get_mut(component: &mut Self::Component) -> Option<&mut Self::Property> {
-        Some(&mut component.translation.y)
-    }
-}
+prop!(
+    pub struct TranslationYProperty,
+    Transform,
+    f32,
+    |tf| &mut tf.translation.y
+);
 
 #[derive(Reflect)]
 struct SpriteSaturationProperty;
