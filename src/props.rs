@@ -7,6 +7,8 @@ use bevy_math::{Vec3, VectorSpace};
 use bevy_reflect::{FromReflect, Reflect, Reflectable};
 use bevy_transform::components::Transform;
 
+use crate::AnimValue;
+
 #[derive(Reflect)]
 pub struct IdProperty<C>(#[reflect(ignore)] PhantomData<C>);
 

@@ -1,13 +1,13 @@
 use bevy::{prelude::*, window::PrimaryWindow};
 use bevy_proc_anim::{
-    props::TranslationProperty, Dynamic, DynamicsParams, DynamicsPlugin, DynamicsTickMode,
+    props::TranslationProperty, AnimValuePlugin, DynamicsParams, DynamicsState, TickMode,
 };
 
 fn main() {
     App::new()
         .add_plugins((
             DefaultPlugins,
-            DynamicsPlugin::<TranslationProperty>::new(DynamicsTickMode::PoleMatching),
+            AnimValuePlugin::<TranslationProperty>::new(DynamicsTickMode::PoleMatching),
         ))
         .add_systems(Startup, setup_scene)
         .add_systems(Update, update_dynamics)
@@ -23,12 +23,12 @@ fn setup_scene(
     commands.spawn((
         Mesh2d(meshes.add(Circle::new(100.0))),
         MeshMaterial2d(materials.add(ColorMaterial::from_color(Color::WHITE))),
-        Dynamic::<TranslationProperty>::new(Vec3::ZERO, DynamicsParams::new(3.0, 0.5, 2.0)),
+        DynamicsState::<TranslationProperty>::new(Vec3::ZERO, DynamicsParams::new(3.0, 0.5, 2.0)),
     ));
 }
 
 fn update_dynamics(
-    mut circle: Single<&mut Dynamic<TranslationProperty>>,
+    mut circle: Single<&mut DynamicsState<TranslationProperty>>,
     window: Single<&Window, With<PrimaryWindow>>,
     camera: Single<(&Camera, &GlobalTransform)>,
 ) {

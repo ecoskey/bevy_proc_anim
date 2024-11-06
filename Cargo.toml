@@ -11,6 +11,8 @@ bevy_reflect = { git = "https://github.com/bevyengine/bevy" }
 bevy_transform = { git = "https://github.com/bevyengine/bevy" }
 bevy_time = { git = "https://github.com/bevyengine/bevy" }
 bevy_app = { git = "https://github.com/bevyengine/bevy" }
+bevy_color = { git = "https://github.com/bevyengine/bevy" }
+bevy_utils = { git = "https://github.com/bevyengine/bevy" }
 
 [dev-dependencies]
 bevy = { git = "https://github.com/bevyengine/bevy" }
