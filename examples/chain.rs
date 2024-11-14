@@ -31,8 +31,8 @@ fn setup_scene(
         .id();
 
     let mut prev = first;
-    const FOLLOWERS: u32 = 1000;
-    const MARGIN: f32 = 10.0;
+    const FOLLOWERS: u32 = 10;
+    const MARGIN: f32 = 20.0;
 
     for _ in 0..FOLLOWERS {
         let curr = commands

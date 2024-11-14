@@ -1,4 +1,4 @@
-use crate::{AnimValue, DefaultTickMode};
+use crate::AnimValue;
 
 use std::{f32::consts::PI, fmt::Debug, marker::PhantomData};
 
@@ -8,13 +8,11 @@ use bevy_ecs::system::SystemId;
 use bevy_ecs::{
     component::Component,
     entity::Entity,
-    prelude::Commands,
     prelude::Local,
     query::{QueryState, With},
-    schedule::IntoSystemConfigs,
-    schedule::SystemSet,
+    schedule::{IntoSystemConfigs, SystemSet},
     system::{Query, Res},
-    world::{Command, World},
+    world::World,
 };
 use bevy_math::ops::{self, FloatPow};
 use bevy_time::Time;
